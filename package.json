@@ -1,7 +1,6 @@
 {
   "name": "mentora",
   "version": "0.1.0",
-  "type": "module",
   "engines": {
     "node": "24.x"
   },
