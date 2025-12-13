@@ -13,8 +13,6 @@ import GoalSelection from './components/GoalSelection';
 import Roadmap from './components/Roadmap';
 import { MentoraProvider } from './context/MentoraContext';
 
-function Home() {
-
 interface Message {
   role: "user" | "assistant";
   content: string;
