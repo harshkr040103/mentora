@@ -61,7 +61,7 @@
     "vite": "^5.x.x"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build"
+    "build": "npx vite build",
+    "dev": "npx vite"
   }
 }
