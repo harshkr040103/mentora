@@ -6,6 +6,10 @@ import { PDFDownload } from "./components/PDFDownload";
 import { VoiceIndicator } from "./components/VoiceIndicator";
 import { MentoraAI, Phase } from "./components/MentoraAI";
 import { RotateCcw } from "lucide-react";
+import { Routes, Route } from 'react-router-dom';
+import Onboarding from './components/Onboarding';
+
+function Home() {
 
 interface Message {
   role: "user" | "assistant";
@@ -14,6 +18,16 @@ interface Message {
 }
 
 export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/onboarding" element={<Onboarding onNext={() => window.location.href = '/onboarding/step-2'} />} />
+      <Route path="/onboarding/step-2" element={<OnboardingStep2 />} />
+    </Routes>
+  );
+}
+
+function Home() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
@@ -165,4 +179,15 @@ function getPhaseLabel(phase: Phase): string {
     default:
       return "";
   }
+}
+
+function OnboardingStep2() {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="max-w-2xl p-8 bg-white rounded-lg shadow">
+        <h2 className="text-xl font-semibold mb-4">Onboarding — Step 2</h2>
+        <p className="text-sm text-slate-600">This is a placeholder for the next onboarding step. You can replace this with your real flow.</p>
+      </div>
+    </div>
+  );
 }
