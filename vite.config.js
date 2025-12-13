@@ -1,22 +1,6 @@
-const { defineConfig } = require('vite');
-const react = require('@vitejs/plugin-react-swc');
-const path = require('path');
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-module.exports = defineConfig({
+export default defineConfig({
   plugins: [react()],
-  resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
-  build: {
-    target: 'esnext',
-    outDir: 'dist',
-    sourcemap: false,
-    emptyOutDir: true,
-  },
-  server: {
-    port: 3000,
-  },
 });
