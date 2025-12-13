@@ -8,6 +8,7 @@ import { MentoraAI, Phase } from "./components/MentoraAI";
 import { RotateCcw } from "lucide-react";
 import { Routes, Route } from 'react-router-dom';
 import Onboarding from './components/Onboarding';
+import Assessment from './components/Assessment';
 
 function Home() {
 
@@ -23,6 +24,7 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/onboarding" element={<Onboarding onNext={() => window.location.href = '/onboarding/step-2'} />} />
       <Route path="/onboarding/step-2" element={<OnboardingStep2 />} />
+      <Route path="/onboarding/assessment" element={<Assessment />} />
     </Routes>
   );
 }
