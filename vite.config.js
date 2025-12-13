@@ -14,9 +14,9 @@ module.exports = defineConfig({
     target: 'esnext',
     outDir: 'dist',
     sourcemap: false,
+    emptyOutDir: true,
   },
   server: {
     port: 3000,
-    open: true,
   },
 });
