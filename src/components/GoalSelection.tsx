@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useMentora } from '../context/MentoraContext';
 
 type Mode = 'personal' | 'organisation';
 
@@ -32,6 +33,8 @@ export default function GoalSelection({ mode, onNext }: Props) {
   }
 
   function handleNext() {
+    const { setGoals } = useMentora();
+    setGoals(selected);
     if (onNext) {
       onNext(selected);
       return;

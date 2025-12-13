@@ -1,15 +1,20 @@
 import React from 'react';
+import { useMentora } from '../context/MentoraContext';
 
 type Mode = 'personal' | 'organisation';
 
 type Props = {
-  mode: Mode;
+  mode?: Mode;
   goals?: string[];
   recommendations?: string[];
   onDownload?: () => void; // hook only
 };
 
-export default function Roadmap({ mode, goals = [], recommendations = [], onDownload }: Props) {
+export default function Roadmap({ mode, goals, recommendations, onDownload }: Props) {
+  const ctx = useMentora();
+  const useMode = mode ?? ctx.mode;
+  const useGoals = goals ?? ctx.goals;
+  const useRecs = recommendations ?? ctx.recommendations;
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow">
       <div className="flex items-start justify-between mb-4">
@@ -27,11 +32,11 @@ export default function Roadmap({ mode, goals = [], recommendations = [], onDown
         </div>
       </div>
 
-      {goals.length > 0 && (
+      {useGoals.length > 0 && (
         <div className="mb-4">
           <div className="text-sm font-medium text-slate-700 mb-2">Selected Goals</div>
           <ul className="list-disc list-inside text-sm text-slate-600">
-            {goals.map((g) => (
+            {useGoals.map((g) => (
               <li key={g}>{g}</li>
             ))}
           </ul>
@@ -39,7 +44,7 @@ export default function Roadmap({ mode, goals = [], recommendations = [], onDown
       )}
 
       <div>
-        {mode === 'personal' ? (
+        {useMode === 'personal' ? (
           <div className="space-y-6">
             <section>
               <h3 className="font-semibold">30-Day: Foundations</h3>
@@ -100,11 +105,11 @@ export default function Roadmap({ mode, goals = [], recommendations = [], onDown
         )}
       </div>
 
-      {recommendations.length > 0 && (
+      {useRecs.length > 0 && (
         <div className="mt-6 p-4 bg-gray-50 rounded">
           <div className="text-sm font-medium mb-2">Recommendations</div>
           <ul className="list-disc list-inside text-sm text-slate-700">
-            {recommendations.map((r, i) => (
+            {useRecs.map((r, i) => (
               <li key={i}>{r}</li>
             ))}
           </ul>

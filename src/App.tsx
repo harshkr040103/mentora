@@ -9,6 +9,9 @@ import { RotateCcw } from "lucide-react";
 import { Routes, Route } from 'react-router-dom';
 import Onboarding from './components/Onboarding';
 import Assessment from './components/Assessment';
+import GoalSelection from './components/GoalSelection';
+import Roadmap from './components/Roadmap';
+import { MentoraProvider } from './context/MentoraContext';
 
 function Home() {
 
@@ -20,12 +23,16 @@ interface Message {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/onboarding" element={<Onboarding onNext={() => window.location.href = '/onboarding/step-2'} />} />
-      <Route path="/onboarding/step-2" element={<OnboardingStep2 />} />
-      <Route path="/onboarding/assessment" element={<Assessment />} />
-    </Routes>
+    <MentoraProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/onboarding/goals" element={<GoalSelection mode={'personal'} />} />
+        <Route path="/onboarding/assessment" element={<Assessment />} />
+        <Route path="/onboarding/roadmap" element={<Roadmap />} />
+        <Route path="/onboarding/step-2" element={<OnboardingStep2 />} />
+      </Routes>
+    </MentoraProvider>
   );
 }
 

@@ -15,12 +15,13 @@ type Props = {
   onFinish?: (assessment: Assessment) => void;
 };
 
-export default function Assessment({ mode = 'personal', onFinish }: Props) {
+export default function Assessment({ mode: propMode, onFinish }: Props) {
   const navigate = useNavigate();
   const [step, setStep] = useState<number>(1);
+  const { mode, setAssessment: setAssessmentInCtx, setRecommendations } = require('../context/MentoraContext').useMentora();
 
   const [assessment, setAssessment] = useState<Assessment>({
-    mode,
+    mode: (propMode || mode) as Mode,
     currentState: {},
     desiredState: {},
     strategy: {},
@@ -109,14 +110,23 @@ export default function Assessment({ mode = 'personal', onFinish }: Props) {
     return 'Consider training and process changes focused on priority areas.';
   }
 
-  function handleNextStep() {
+  async function handleNextStep() {
     if (step < 3) {
       setStep((s) => s + 1);
       return;
     }
-    // finish
+    // finish: store assessment in global context and compute recommendations
+    setAssessmentInCtx(assessment);
+    try {
+      const { getRecommendations } = await import('../utils/recommendations');
+      const recs = getRecommendations(assessment.mode, [], assessment);
+      setRecommendations(recs);
+    } catch (err) {
+      // ignore
+    }
+
     if (onFinish) onFinish(assessment);
-    else navigate('/');
+    else navigate('/onboarding/roadmap');
   }
 
   function handleBack() {
